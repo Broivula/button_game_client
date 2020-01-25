@@ -3,6 +3,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-kapt"
+def room_version = "2.2.0-rc01"
+def anko_version = "0.10.8"
 
 android {
     compileSdkVersion 29
@@ -35,4 +38,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     // custom
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "org.jetbrains.anko:anko:$anko_version"
 }
