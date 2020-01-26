@@ -13,9 +13,8 @@ object DatabaseObject{
         dataBase = AppDatabase.get(context)
     }
 
-    fun getUserData () : List<DB_User>? = doAsync {
-        var result = dataBase?.DB_UserDao()?.getAll()
-
+    fun getUserData () : List<DB_User>?  {
+        return dataBase?.DB_UserDao()?.getAll()
     }
 
 }

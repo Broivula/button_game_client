@@ -9,6 +9,7 @@ import kotlin.concurrent.thread
 object Networking {
 
     var  socket : Socket? = null
+    val networkHandler = NetworkHandler()
 
      suspend fun establishConnection(){
         try {
@@ -51,6 +52,10 @@ object Networking {
     fun setPrinter(){
         val printOut = PrintStream(socket!!.getOutputStream() ,true)
         printOut.println("connection established, I'm a new client!")
+    }
+
+    fun checkIfUsernameAvailable(){
+        networkHandler.checkUsernameAvailability()
     }
 
 }

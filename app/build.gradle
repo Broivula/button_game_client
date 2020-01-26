@@ -17,6 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -41,4 +42,6 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-runtime:$room_version"
     implementation "org.jetbrains.anko:anko:$anko_version"
+    implementation 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    api 'com.squareup.okhttp3:okhttp:3.10.0'
 }

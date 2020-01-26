@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Button Game</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="username_dialog_hint">Username</string>
+    <string name="username_dialog_submit">Submit</string>
+    <string name="username_dialog_textview_text">Enter a valid username.</string>
 </resources>

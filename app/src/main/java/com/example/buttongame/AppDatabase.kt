@@ -22,7 +22,7 @@ interface DB_UserDao {
 
 }
 
-@Database(entities = [(DB_User::class)], version = 1)
+@Database(entities = [(DB_User::class)], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase(){
     abstract fun DB_UserDao(): DB_UserDao
 
@@ -31,7 +31,7 @@ abstract class AppDatabase : RoomDatabase(){
 
         @Synchronized
         fun get(context: Context) : AppDatabase{
-            if(sInstance == null) sInstance = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "app_database").build()
+            if(sInstance == null) sInstance = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "app_database").allowMainThreadQueries().build()
             return sInstance!!
         }
     }
