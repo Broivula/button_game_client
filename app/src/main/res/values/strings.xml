@@ -2,5 +2,10 @@
     <string name="app_name">Button Game</string>
     <string name="username_dialog_hint">Username</string>
     <string name="username_dialog_submit">Submit</string>
-    <string name="username_dialog_textview_text">Enter a valid username.</string>
+    <string name="username_dialog_help_text">To be able to play online, you have to have a username.\nA valid username contains: \n - 3 to 15 characters \n - no special characters</string>
+    <string name="username_dialog_textview_text">Please, enter a valid username:</string>
+    <string name="username_dialog_title_text">No username detected!</string>
+    <string name="username_error_text_fail_regex">given name contains invalid characters</string>
+    <string name="username_error_text_name_taken">given name already in use!</string>
+    <string name="username_error_text_name_length">name must be between 3 and 15 characters long!</string>
 </resources>

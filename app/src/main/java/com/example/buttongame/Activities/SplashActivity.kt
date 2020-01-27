@@ -1,9 +1,11 @@
-package com.example.buttongame
+package com.example.buttongame.Activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.buttongame.Database.DatabaseObject
+import com.example.buttongame.LOG
 
 class SplashActivity : AppCompatActivity() {
 

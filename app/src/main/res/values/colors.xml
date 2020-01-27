@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#12A09B</color>
+    <color name="colorPrimaryLighter">#BFD6D1</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorHintTextGray">#6D6D6D</color>
+    <color name="colorError">#EC1717</color>
+    <color name="colorSecondary">#ff7043</color>
+    <color name="colorSecondaryLighter">#F09175</color>
     <color name="colorSplashBackground">#12A09B</color>
     <color name="colorUserCreationBackground">#96D3C1</color>
     <color name="colorUsernameDialogBackground">#C9DFDA</color>

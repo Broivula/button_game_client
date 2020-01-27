@@ -1,8 +1,7 @@
-package com.example.buttongame
+package com.example.buttongame.Database
 
 import android.content.Context
 import androidx.room.*
-import java.net.ContentHandler
 
 
 @Entity
@@ -30,7 +29,7 @@ abstract class AppDatabase : RoomDatabase(){
         private var sInstance: AppDatabase? = null
 
         @Synchronized
-        fun get(context: Context) : AppDatabase{
+        fun get(context: Context) : AppDatabase {
             if(sInstance == null) sInstance = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "app_database").allowMainThreadQueries().build()
             return sInstance!!
         }

@@ -1,9 +1,7 @@
-package com.example.buttongame
+package com.example.buttongame.Database
 
 import android.content.Context
 import kotlinx.coroutines.runBlocking
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 
 object DatabaseObject{
 
@@ -13,8 +11,12 @@ object DatabaseObject{
         dataBase = AppDatabase.get(context)
     }
 
-    fun getUserData () : List<DB_User>?  {
+    fun getUserData() : List<DB_User>?  {
         return dataBase?.DB_UserDao()?.getAll()
+    }
+
+    fun addUserToDB(uid: String, username: String) {
+        dataBase?.DB_UserDao()?.insert(DB_User(uid, username))
     }
 
 }

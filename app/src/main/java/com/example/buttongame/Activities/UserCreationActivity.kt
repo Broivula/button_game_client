@@ -1,10 +1,13 @@
-package com.example.buttongame
+package com.example.buttongame.Activities
 
-import android.app.Dialog
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.DialogFragment
+import com.example.buttongame.LOG
+import com.example.buttongame.R
+import com.example.buttongame.UsernameDialog
+import org.jetbrains.anko.matchParent
 
 class UserCreationActivity : AppCompatActivity() {
 
@@ -19,9 +22,11 @@ class UserCreationActivity : AppCompatActivity() {
         dialog.enterTransition = R.anim.slide_in_left
         dialog.exitTransition = R.anim.slide_out_left
         dialog.isCancelable = false
-        Log.d(LOG, "slide anim: ${dialog.enterTransition}")
+        dialog.show(supportFragmentManager, "username_dialog")
 
-        dialog.show(supportFragmentManager, "test dialog")
+    }
 
+    override fun finish() {
+        super.finish()
     }
 }

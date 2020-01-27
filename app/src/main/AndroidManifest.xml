@@ -12,21 +12,25 @@
         android:supportsRtl="true"
         android:theme="@style/SplashScreenTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UserCreationActivity"></activity>
-        <activity android:name=".SplashActivity">
+
+        <activity
+            android:name=".Activities.SplashActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity
+            android:name=".Activities.MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".Activities.UserCreationActivity"></activity>
     </application>
 
 </manifest>

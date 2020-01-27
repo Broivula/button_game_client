@@ -1,8 +1,8 @@
-package com.example.buttongame
+package com.example.buttongame.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlin.concurrent.thread
+import com.example.buttongame.R
 
 class MainActivity : AppCompatActivity() {
 

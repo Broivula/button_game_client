@@ -1,6 +1,7 @@
-package com.example.buttongame
+package com.example.buttongame.Networking
 
 import android.util.Log
+import com.example.buttongame.LOG
 import kotlinx.coroutines.delay
 import java.io.*
 import java.net.Socket
@@ -9,7 +10,7 @@ import kotlin.concurrent.thread
 object Networking {
 
     var  socket : Socket? = null
-    val networkHandler = NetworkHandler()
+    val networkHandler = NetworkAPIHandler()
 
      suspend fun establishConnection(){
         try {
@@ -54,8 +55,11 @@ object Networking {
         printOut.println("connection established, I'm a new client!")
     }
 
+    /*
     fun checkIfUsernameAvailable(){
         networkHandler.checkUsernameAvailability()
     }
 
+
+     */
 }
