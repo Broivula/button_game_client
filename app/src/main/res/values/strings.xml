@@ -8,4 +8,6 @@
     <string name="username_error_text_fail_regex">given name contains invalid characters</string>
     <string name="username_error_text_name_taken">given name already in use!</string>
     <string name="username_error_text_name_length">name must be between 3 and 15 characters long!</string>
+    <string name="lobby_card_join_button">JOIN</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

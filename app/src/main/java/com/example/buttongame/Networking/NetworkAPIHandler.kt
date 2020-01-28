@@ -2,13 +2,12 @@ package com.example.buttongame.Networking
 
 import android.util.Log
 import com.example.buttongame.*
-import okhttp3.MediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
+import okhttp3.*
 import org.jetbrains.anko.doAsync
 import org.json.JSONObject
 import java.io.IOException
+
+
 
 class NetworkAPIHandler {
 
@@ -71,6 +70,61 @@ class NetworkAPIHandler {
             }catch (e: IOException){
                 Log.d(LOG, "error: ${e.toString()}")
             }
+        }
+    }
+
+
+    fun getRoomData(callback: (List<RoomData>) -> Unit) {
+
+        val roomList : MutableList<RoomData> = mutableListOf()
+        val request = Request.Builder()
+            .url(API_URL + GET_ROOM_DATA_ENDPOINT)
+            .addHeader(AUTH, TOKEN)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                Log.d(LOG, "getting room data failed")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if(response.code() == 200){
+
+
+                    val parsedArray = CustomParser.parse(response.body()?.string()!!)
+                    for(room in parsedArray){
+                        val parsedRoom = JSONObject(room)
+                        roomList.add(RoomData(
+                            parsedRoom.getInt("roomNumber"),
+                            parsedRoom.getInt("playerCount"),
+                            parsedRoom.getInt("curClick")
+                        ))
+                    }
+                    callback(roomList.toList())
+                }
+            }
+        })
+    }
+}
+
+class CustomParser{
+    companion object ArrayParser{
+        fun parse(string: String) : List<String>{
+            val unwanted_char_list : List<Char> = listOf('[', ']')
+            var s : String = ""
+            val s_list : MutableList<String> = mutableListOf()
+            for (c in string){
+                // we don't want these
+                if(!unwanted_char_list.contains(c)){
+                    s = s+c
+                }
+                if(c == '}'){
+                    if(s[0] == ',')s_list.add(s.replaceFirst(',',' '))
+                    else s_list.add(s)
+                    s = ""
+                }
+            }
+            return s_list.toList()
         }
     }
 }
