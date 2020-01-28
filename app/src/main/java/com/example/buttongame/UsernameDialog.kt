@@ -53,15 +53,11 @@ class UsernameDialog : AppCompatDialogFragment() {
             submitButton.setOnClickListener {
                 submitButton.isEnabled = false
                 val name = editTextField.text.toString()
-                /*
+
                 Networking.networkHandler.postUsernameInfo(name){uid ->
                     DatabaseObject.addUserToDB(uid, name)
                     dismiss()
                 }
-
-                 */
-                dismiss()
-
             }
 
 
@@ -178,10 +174,10 @@ class UsernameDialog : AppCompatDialogFragment() {
 
     }
 
+    //TODO Currently crashes, because content is sometimes null, has to be fixed later
     override fun onDismiss(dialog: DialogInterface?) {
         super.onDismiss(dialog)
         Thread.sleep(1000)
-
         val intent = Intent(context, MainActivity::class.java )
         startActivity(intent)
     }

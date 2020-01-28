@@ -19,4 +19,8 @@ object DatabaseObject{
         dataBase?.DB_UserDao()?.insert(DB_User(uid, username))
     }
 
+    fun getUsername() : String{
+        return dataBase?.DB_UserDao()?.getUsername()!!
+    }
+
 }

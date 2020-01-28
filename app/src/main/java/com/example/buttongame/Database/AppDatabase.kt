@@ -16,6 +16,9 @@ interface DB_UserDao {
     @Query("SELECT * FROM DB_User")
     fun getAll(): List<DB_User>?
 
+    @Query("SELECT username FROM DB_User")
+    fun getUsername(): String
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(user: DB_User)
 

@@ -1,6 +1,7 @@
 package com.example.buttongame.Networking
 
 import android.util.Log
+import com.example.buttongame.Database.DatabaseObject
 import com.example.buttongame.LOG
 import kotlinx.coroutines.delay
 import java.io.*
@@ -11,6 +12,7 @@ object Networking {
 
     var  socket : Socket? = null
     val networkHandler = NetworkAPIHandler()
+    var socketCommunicator : PrintStream? = null
 
      suspend fun establishConnection(){
         try {
@@ -51,8 +53,18 @@ object Networking {
     }
 
     fun setPrinter(){
-        val printOut = PrintStream(socket!!.getOutputStream() ,true)
-        printOut.println("connection established, I'm a new client!")
+        socketCommunicator = PrintStream(socket!!.getOutputStream() ,true)
+        val username = DatabaseObject.getUsername()
+        val data = """{
+            |"username": "$username",
+            |"roomNumber": "3"
+            |}""".trimMargin()
+        socketCommunicator?.println(data)
+    }
+
+    fun sendData(data: String){
+        val username = DatabaseObject.getUsername()
+        socketCommunicator?.println(username)
     }
 
     /*
