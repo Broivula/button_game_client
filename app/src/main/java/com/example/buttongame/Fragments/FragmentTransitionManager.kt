@@ -13,10 +13,17 @@ enum class FragmentID {
 
 object FragmentTransitionManager {
 
-    fun switchFragments(target: FragmentID, supportFragmentManager: FragmentManager, enterAnimation: Int, exitAnimation: Int){
+    fun switchFragments(
+        target: FragmentID,
+        supportFragmentManager: FragmentManager,
+        enterAnimation: Int,
+        exitAnimation: Int,
+        backEnterAnimation : Int? = null,
+        backExitAnimation: Int? = null,
+        fragmentTag : String? = null){
 
         val fManager = supportFragmentManager
-        val fTransaction = fManager!!.beginTransaction()
+        val fTransaction = fManager.beginTransaction()
         var fragment : Fragment? = null
         when(target){
             FragmentID.MAIN -> {
@@ -29,7 +36,12 @@ object FragmentTransitionManager {
 
             }
         }
-        fTransaction.setCustomAnimations(enterAnimation, exitAnimation)
+        if(backEnterAnimation == null){
+            fTransaction.setCustomAnimations(enterAnimation, exitAnimation)
+        }else{
+            fTransaction.setCustomAnimations(enterAnimation, exitAnimation, backEnterAnimation, backExitAnimation!!).addToBackStack(fragmentTag)
+        }
+
         fTransaction.replace(R.id.main_fragment_containter, fragment!!)
         fTransaction.commit()
     }

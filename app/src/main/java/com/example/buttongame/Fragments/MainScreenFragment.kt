@@ -28,7 +28,7 @@ class MainScreenFragment : Fragment() {
 
         view.findViewById<Button>(R.id.main_join_game_button).setOnClickListener {
             // opens up the lobby fragment
-            FragmentTransitionManager.switchFragments(FragmentID.ROOMS, fragmentManager!!, R.anim.slide_in_left, R.anim.slide_out_left)
+            FragmentTransitionManager.switchFragments(FragmentID.ROOMS, fragmentManager!!, R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right)
         }
     }
 }

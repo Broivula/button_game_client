@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Button Game</string>
+
+    <!--    FOR USER CREATION DIALOG   -->
     <string name="username_dialog_hint">Username</string>
     <string name="username_dialog_submit">Submit</string>
     <string name="username_dialog_help_text">To be able to play online, you have to have a username.\nA valid username contains: \n - 3 to 15 characters \n - no special characters</string>
@@ -8,6 +10,15 @@
     <string name="username_error_text_fail_regex">given name contains invalid characters</string>
     <string name="username_error_text_name_taken">given name already in use!</string>
     <string name="username_error_text_name_length">name must be between 3 and 15 characters long!</string>
+
+    <!-- FOR MAIN SELECTION FRAGMENT    -->
+    <string name="main_frag_join_game_button">Join a game</string>
+    <string name="main_frag_settings">Settings</string>
+
+    <!--    FOR LOBBY FRAGMENT       -->
+    <string name="lobby_fragment_list_title">Join a game</string>
     <string name="lobby_card_join_button">JOIN</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lobby_card_room_title">Room #%1$s</string>
+    <string name="lobby_card_room_occupants">%1$s/10</string>
+    <string name="lobby_card_room_current_score">Ongoing click: %1$s</string>
 </resources>

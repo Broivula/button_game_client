@@ -64,6 +64,9 @@ object Networking {
 
     fun sendData(data: String){
         val username = DatabaseObject.getUsername()
+        val msg = """{
+            |
+            |}""".trimMargin()
         socketCommunicator?.println(username)
     }
 

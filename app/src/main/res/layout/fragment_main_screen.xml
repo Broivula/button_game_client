@@ -21,18 +21,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="84dp"
-        android:text="Button"
+        android:text="@string/main_frag_join_game_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo_image_view" />
+        app:layout_constraintTop_toBottomOf="@+id/logo_image_view"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:background="@color/colorSecondaryLighter"/>
 
     <Button
         android:id="@+id/main_settings_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:text="Button"
+        android:text="@string/main_frag_settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_join_game_button" />
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/main_join_game_button"
+        android:background="@color/colorSecondaryLighter"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,10 +21,12 @@ class MainAdapter (val context: Context, var dataOfRooms : List<RoomData>) : Rec
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val room = dataOfRooms.get(position)
-
-        holder.view.lobby_card_room_number_textview.text = room.roomNumber.toString()
-        holder.view.lobby_card_room_playercount_textview.text = room.playerCount.toString()
-        holder.view.lobby_card_current_click_textview.text = room.curClick.toString()
+        holder.view.lobby_card_room_number_textview.text = holder.view.context.getString(R.string.lobby_card_room_title, room.roomNumber.toString())
+        holder.view.lobby_card_room_playercount_textview.text = holder.view.context.getString(R.string.lobby_card_room_occupants, room.playerCount.toString())
+        holder.view.lobby_card_current_click_textview.text = holder.view.context.getString(R.string.lobby_card_room_current_score, room.curClick.toString())
+        holder.view.lobby_card_join_button.setOnClickListener {
+            // try to join the room
+        }
     }
 }
 
