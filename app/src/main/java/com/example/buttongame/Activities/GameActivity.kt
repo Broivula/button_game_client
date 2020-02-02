@@ -16,12 +16,18 @@ class GameActivity : AppCompatActivity() {
 
         val roomNumber : Int = intent.extras?.getInt("roomNumber")!!
 
-        thread { connectToRoom(roomNumber) }
+        connectToRoom(roomNumber)
     }
 
 
 
-    private fun connectToRoom(roomNumber: Int) = runBlocking{
+    private fun connectToRoom(roomNumber: Int) {
         Networking.establishConnection(SocketMessage(DatabaseObject.getUsername(), TOKEN, roomNumber + 1, SocketEvent.JOIN_ROOM))
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Networking.sendData(SocketMessage(DatabaseObject.getUsername(), TOKEN, null, SocketEvent.EXIT_ROOM))
+
     }
 }

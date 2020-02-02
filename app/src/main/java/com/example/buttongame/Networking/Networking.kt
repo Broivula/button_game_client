@@ -6,6 +6,7 @@ import com.example.buttongame.LOG
 import com.example.buttongame.SocketMessage
 import com.example.buttongame.TOKEN
 import kotlinx.coroutines.delay
+import org.jetbrains.anko.doAsync
 import org.json.JSONObject
 import java.io.*
 import java.net.Socket
@@ -19,7 +20,7 @@ object Networking {
     val networkHandler = NetworkAPIHandler()
     var socketCommunicator : PrintStream? = null
 
-     suspend fun establishConnection(msg: SocketMessage){
+    fun establishConnection(msg: SocketMessage) = doAsync{
         try {
             var tries = 0
             socket = Socket("192.168.8.100", 3366)
@@ -28,7 +29,7 @@ object Networking {
 
             while(!socket!!.isConnected && tries < 5){
                 socket = Socket("192.168.8.100", 3366)
-                delay(1000)
+                Thread.sleep(1000)
                 tries++
             }
 
@@ -47,7 +48,7 @@ object Networking {
         }
     }
 
-    fun setListener(){
+    private fun setListener(){
         // testing out the data reader -- so far works !!!
         val reader = socket!!.getInputStream().bufferedReader()
         val iterator = reader.lineSequence().iterator()
@@ -60,18 +61,16 @@ object Networking {
         }
     }
 
-    fun setPrinter(msg: SocketMessage){
+    // function to enter the room. the call is coming from beginning of the game activity.
+
+    private fun setPrinter(msg: SocketMessage){
         socketCommunicator = PrintStream(socket!!.getOutputStream() ,true)
-        val socket_message = """{
-            |"username":"${msg.username}",
-            |"roomNumber":${msg.roomNumber},
-            |"token":"${msg.token}",
-            |"event":"${msg.event}"
-            |}""".trimMargin()
-        socketCommunicator?.println(socket_message)
+        sendData(msg)
     }
 
-    fun sendData(msg: SocketMessage){
+    // function to communicate between the client and the server. Will be called whenever necessary.
+
+    fun sendData(msg: SocketMessage) = doAsync{
         Log.d(LOG, "$msg")
         socketCommunicator?.println("test")
         val socket_message = """{
@@ -83,7 +82,4 @@ object Networking {
         socketCommunicator?.println(socket_message)
     }
 
-    fun joinRoom(msg: SocketMessage){
-
-    }
 }
