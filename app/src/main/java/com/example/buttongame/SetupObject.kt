@@ -8,6 +8,6 @@ object SetupObject {
 
     fun setup() = runBlocking {
         Log.d("KIKKEL", "setup object starting..")
-        Networking.establishConnection()
+      //  Networking.establishConnection()
     }
 }

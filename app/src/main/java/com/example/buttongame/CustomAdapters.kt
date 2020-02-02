@@ -1,11 +1,16 @@
 package com.example.buttongame
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.buttongame.Activities.GameActivity
+import com.example.buttongame.Database.DatabaseObject
+import com.example.buttongame.Networking.Networking
 import kotlinx.android.synthetic.main.lobby_room_layout.view.*
+import kotlin.concurrent.thread
 
 class MainAdapter (val context: Context, var dataOfRooms : List<RoomData>) : RecyclerView.Adapter<CustomViewHolder>(){
 
@@ -26,6 +31,9 @@ class MainAdapter (val context: Context, var dataOfRooms : List<RoomData>) : Rec
         holder.view.lobby_card_current_click_textview.text = holder.view.context.getString(R.string.lobby_card_room_current_score, room.curClick.toString())
         holder.view.lobby_card_join_button.setOnClickListener {
             // try to join the room
+            val intent = Intent(holder.view.context, GameActivity::class.java)
+            intent.putExtra("roomNumber", position)
+            holder.view.context.startActivity(intent)
         }
     }
 }

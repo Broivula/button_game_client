@@ -3,10 +3,15 @@ package com.example.buttongame.Networking
 import android.util.Log
 import com.example.buttongame.Database.DatabaseObject
 import com.example.buttongame.LOG
+import com.example.buttongame.SocketMessage
+import com.example.buttongame.TOKEN
 import kotlinx.coroutines.delay
+import org.json.JSONObject
 import java.io.*
 import java.net.Socket
 import kotlin.concurrent.thread
+
+
 
 object Networking {
 
@@ -14,7 +19,7 @@ object Networking {
     val networkHandler = NetworkAPIHandler()
     var socketCommunicator : PrintStream? = null
 
-     suspend fun establishConnection(){
+     suspend fun establishConnection(msg: SocketMessage){
         try {
             var tries = 0
             socket = Socket("192.168.8.100", 3366)
@@ -29,7 +34,7 @@ object Networking {
 
             if(socket!!.isConnected){
                 thread { setListener() }
-                setPrinter()
+                setPrinter(msg)
 
             }else{
                 Log.d(LOG, "connection to server failed, try again later")
@@ -43,38 +48,42 @@ object Networking {
     }
 
     fun setListener(){
+        // testing out the data reader -- so far works !!!
         val reader = socket!!.getInputStream().bufferedReader()
         val iterator = reader.lineSequence().iterator()
         while(iterator.hasNext()) {
-
             val line = iterator.next()
-            Log.d(LOG, line)
+            val parsed = JSONObject(line)
+            val s = parsed.getString("msg")
+            val s_parsed = JSONObject(s)
+            Log.d(LOG, s_parsed.getInt("clickAmount").toString())
         }
     }
 
-    fun setPrinter(){
+    fun setPrinter(msg: SocketMessage){
         socketCommunicator = PrintStream(socket!!.getOutputStream() ,true)
-        val username = DatabaseObject.getUsername()
-        val data = """{
-            |"username": "$username",
-            |"roomNumber": "3"
+        val socket_message = """{
+            |"username":"${msg.username}",
+            |"roomNumber":${msg.roomNumber},
+            |"token":"${msg.token}",
+            |"event":"${msg.event}"
             |}""".trimMargin()
-        socketCommunicator?.println(data)
+        socketCommunicator?.println(socket_message)
     }
 
-    fun sendData(data: String){
-        val username = DatabaseObject.getUsername()
-        val msg = """{
-            |
+    fun sendData(msg: SocketMessage){
+        Log.d(LOG, "$msg")
+        socketCommunicator?.println("test")
+        val socket_message = """{
+            |"username":"${msg.username}",
+            |"roomNumber":${msg.roomNumber},
+            |"token":"${msg.token}",
+            |"event":"${msg.event}"
             |}""".trimMargin()
-        socketCommunicator?.println(username)
+        socketCommunicator?.println(socket_message)
     }
 
-    /*
-    fun checkIfUsernameAvailable(){
-        networkHandler.checkUsernameAvailability()
+    fun joinRoom(msg: SocketMessage){
+
     }
-
-
-     */
 }
