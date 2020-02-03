@@ -1,25 +1,20 @@
 package com.example.buttongame
 
-import android.app.ActivityOptions
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.example.buttongame.Activities.MainActivity
 import com.example.buttongame.Database.DatabaseObject
-import com.example.buttongame.Networking.Networking
+import com.example.buttongame.Networking.SocketHandler
 import com.jakewharton.rxbinding.widget.RxTextView
-import org.jetbrains.anko.activityManager
 import org.jetbrains.anko.support.v4.runOnUiThread
-import org.jetbrains.anko.support.v4.startActivity
 import java.lang.IllegalStateException
 import java.util.concurrent.TimeUnit
-import kotlin.concurrent.thread
 
 enum class ErrorTextCode{
     TAKEN,
@@ -54,7 +49,7 @@ class UsernameDialog : AppCompatDialogFragment() {
                 submitButton.isEnabled = false
                 val name = editTextField.text.toString()
 
-                Networking.networkHandler.postUsernameInfo(name){uid ->
+                SocketHandler.networkHandler.postUsernameInfo(name){ uid ->
                     DatabaseObject.addUserToDB(uid, name)
                     dismiss()
                 }
@@ -78,7 +73,7 @@ class UsernameDialog : AppCompatDialogFragment() {
                 if(editTextField.text.count() > 0){
 
                     if(UsernameFormChecker.checkName(editTextField.text.toString())){
-                        Networking.networkHandler.checkUsernameAvailability(editTextField.text.toString()) { availability ->
+                        SocketHandler.networkHandler.checkUsernameAvailability(editTextField.text.toString()) { availability ->
                             runOnUiThread {
                                 when(availability){
                                     true -> {

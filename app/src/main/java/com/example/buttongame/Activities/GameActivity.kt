@@ -2,11 +2,14 @@ package com.example.buttongame.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.buttongame.*
 import com.example.buttongame.Database.DatabaseObject
-import com.example.buttongame.Networking.Networking
-import kotlinx.coroutines.runBlocking
-import kotlin.concurrent.thread
+import com.example.buttongame.Networking.SocketEvent
+import com.example.buttongame.Networking.SocketHandler
+import com.example.buttongame.Networking.SocketMessage
+import kotlinx.android.synthetic.main.activity_game.*
 
 class GameActivity : AppCompatActivity() {
 
@@ -22,12 +25,24 @@ class GameActivity : AppCompatActivity() {
 
 
     private fun connectToRoom(roomNumber: Int) {
-        Networking.establishConnection(SocketMessage(DatabaseObject.getUsername(), TOKEN, roomNumber + 1, SocketEvent.JOIN_ROOM))
+        SocketHandler.establishConnection(
+            SocketMessage(
+                DatabaseObject.getUsername(),
+                TOKEN,
+                roomNumber + 1,
+                SocketEvent.JOIN_ROOM
+            )
+        ){
+            Log.d(LOG, "received in game activity, works lmao")
+            runOnUiThread {
+                game_namelist_recycler_view.layoutManager = LinearLayoutManager(this)
+                game_namelist_recycler_view.adapter = GameNameListAdapter(this, it!!.scores)
+            }
+        }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        Networking.sendData(SocketMessage(DatabaseObject.getUsername(), TOKEN, null, SocketEvent.EXIT_ROOM))
-
+        SocketHandler.exitRoom()
     }
 }

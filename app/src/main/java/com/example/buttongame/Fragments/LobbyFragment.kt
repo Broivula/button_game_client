@@ -2,15 +2,13 @@ package com.example.buttongame.Fragments
 
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.buttongame.LOG
 import com.example.buttongame.MainAdapter
-import com.example.buttongame.Networking.Networking
+import com.example.buttongame.Networking.SocketHandler
 
 import com.example.buttongame.R
 import com.example.buttongame.RecyclerviewItemDecoration
@@ -37,7 +35,7 @@ class LobbyFragment : Fragment() {
         // add decorations for the recyclerview
 
         // make the api call to get the roomdata
-        Networking.networkHandler.getRoomData { data ->
+        SocketHandler.networkHandler.getRoomData { data ->
             runOnUiThread {
                 lobby_fragment_recycler_view.layoutManager = LinearLayoutManager(view.context)
                 lobby_fragment_recycler_view.addItemDecoration(RecyclerviewItemDecoration())
