@@ -1,7 +1,9 @@
 package com.example.buttongame
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.drawable.AnimatedVectorDrawable
@@ -12,6 +14,7 @@ import com.example.buttongame.Activities.MainActivity
 import com.example.buttongame.Database.DatabaseObject
 import com.example.buttongame.Networking.SocketHandler
 import com.jakewharton.rxbinding.widget.RxTextView
+import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.runOnUiThread
 import java.lang.IllegalStateException
 import java.util.concurrent.TimeUnit
@@ -30,7 +33,8 @@ enum class ValidationState{
     CLEAR
 }
 
-class UsernameDialog : AppCompatDialogFragment() {
+class UsernameDialog(val callback: () -> Unit) : AppCompatDialogFragment() {
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -164,17 +168,9 @@ class UsernameDialog : AppCompatDialogFragment() {
 
     }
 
-    override fun onCancel(dialog: DialogInterface?) {
-        super.onCancel(dialog)
-
-    }
-
-    //TODO Currently crashes, because content is sometimes null, has to be fixed later
     override fun onDismiss(dialog: DialogInterface?) {
+        callback()
         super.onDismiss(dialog)
-        Thread.sleep(1000)
-        val intent = Intent(context, MainActivity::class.java )
-        startActivity(intent)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -185,11 +181,11 @@ class UsernameDialog : AppCompatDialogFragment() {
 }
 
 
-class UsernameFormChecker(){
+class UsernameFormChecker{
 
     companion object UsernameFormChecker {
 
-        val legitName = Regex("^(?=.{3,15}\$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])\$")
+        private val legitName = Regex("^(?=.{3,15}\$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])\$")
         fun checkName(name: String) : Boolean{
             return legitName.containsMatchIn(name)
         }

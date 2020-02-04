@@ -1,5 +1,6 @@
 package com.example.buttongame.Networking
 
+import android.provider.ContactsContract
 import android.util.Log
 import com.example.buttongame.Database.DatabaseObject
 import com.example.buttongame.LOG
@@ -53,8 +54,8 @@ object SocketHandler {
         while(iterator.hasNext()) {
             val line = iterator.next()
             val msg = SocketMessageParser.parse(line)
+            Log.d(LOG, "msg incoming: $msg")
             callback(msg)
-
         }
     }
 
@@ -65,20 +66,40 @@ object SocketHandler {
 
     // function to communicate between the client and the server. Will be called whenever necessary.
 
-    fun sendData(msg: SocketMessage) = doAsync{
+    private fun sendData(msg: SocketMessage) = doAsync{
         Log.d(LOG, "$msg")
-        socketCommunicator?.println("test")
-        val socket_message = """{
+        val socketMessage = """{
             |"username":"${msg.username}",
             |"roomNumber":${msg.roomNumber},
             |"token":"${msg.token}",
-            |"event":"${msg.event}"
+            |"event":"${msg.event}",
+            |"playerScore":${msg.playerScore}
             |}""".trimMargin()
-        socketCommunicator?.println(socket_message)
+        socketCommunicator?.println(socketMessage)
     }
 
-    fun joinRoom(roomNumber: Int) = doAsync{
+    fun sendClick(roomNumber: Int, playerScore: Int?) = doAsync{
+        sendData(
+            SocketMessage(
+                DatabaseObject.getUsername(),
+                TOKEN,
+                roomNumber,
+                SocketEvent.SEND_CLICK,
+                playerScore
+            )
+        )
+    }
 
+    fun newGame(roomNumber: Int) = doAsync {
+        sendData(
+            SocketMessage(
+                DatabaseObject.getUsername(),
+                TOKEN,
+                roomNumber,
+                SocketEvent.NEW_GAME,
+                null
+            )
+        )
     }
 
     fun exitRoom() = doAsync {
@@ -87,7 +108,8 @@ object SocketHandler {
                 DatabaseObject.getUsername(),
                 TOKEN,
                 null,
-                SocketEvent.EXIT_ROOM
+                SocketEvent.EXIT_ROOM,
+                null
             )
         )
     }

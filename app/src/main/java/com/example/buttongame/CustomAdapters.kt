@@ -2,6 +2,7 @@ package com.example.buttongame
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.example.buttongame.Activities.GameActivity
 import com.example.buttongame.Networking.Score
 import kotlinx.android.synthetic.main.activity_game_nameplate.view.*
 import kotlinx.android.synthetic.main.lobby_room_layout.view.*
+import org.jetbrains.anko.custom.style
 
 class MainAdapter (val context: Context, var dataOfRooms : List<RoomData>) : RecyclerView.Adapter<CustomViewHolder>(){
 

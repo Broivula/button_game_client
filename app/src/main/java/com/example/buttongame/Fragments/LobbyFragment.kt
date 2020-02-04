@@ -2,11 +2,13 @@ package com.example.buttongame.Fragments
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.buttongame.LOG
 import com.example.buttongame.MainAdapter
 import com.example.buttongame.Networking.SocketHandler
 
@@ -33,18 +35,20 @@ class LobbyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // add decorations for the recyclerview
+        lobby_fragment_recycler_view.addItemDecoration(RecyclerviewItemDecoration(40))
 
-        // make the api call to get the roomdata
-        SocketHandler.networkHandler.getRoomData { data ->
-            runOnUiThread {
-                lobby_fragment_recycler_view.layoutManager = LinearLayoutManager(view.context)
-                lobby_fragment_recycler_view.addItemDecoration(RecyclerviewItemDecoration())
-                lobby_fragment_recycler_view.adapter = MainAdapter(view.context, data)
-            }
-        }
 
 
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        // make the api call to get the roomdata
+        SocketHandler.networkHandler.getRoomData { data ->
+            runOnUiThread {
+                lobby_fragment_recycler_view.layoutManager = LinearLayoutManager(view!!.context)
+                lobby_fragment_recycler_view.adapter = MainAdapter(view!!.context, data)
+            }
+        }
+    }
 }

@@ -17,8 +17,9 @@
         android:layout_marginBottom="15dp"
         android:textStyle="bold"
         android:text="@string/username_dialog_title_text"
-        android:textColor="@color/colorDarkText"
-        android:textSize="26sp" />
+        android:textSize="26sp"
+        android:fontFamily="@font/jaapokki_family"
+        style="@style/TextOutlineStyle"/>
 
     <TextView
         android:id="@+id/username_dialog_help_text"
@@ -30,8 +31,9 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="50dp"
         android:text="@string/username_dialog_help_text"
-        android:textColor="@color/colorDarkText"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:fontFamily="@font/jaapokki_family"
+        style="@style/TextOutlineStyle"/>
 
     <TextView
         android:id="@+id/username_dialog_textview"
@@ -41,8 +43,9 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="20dp"
         android:text="@string/username_dialog_textview_text"
-        android:textColor="@color/colorDarkText"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:fontFamily="@font/jaapokki_family"
+        style="@style/TextOutlineStyle"/>
 
 
     <RelativeLayout
@@ -97,6 +100,8 @@
             android:textColor="@color/colorError"
             android:layout_marginLeft="20dp"
             android:text=""
+            android:fontFamily="@font/jaapokki_family"
+            style="@style/TextOutlineStyle"
             />
 
         <Button
@@ -109,7 +114,9 @@
             android:layout_toEndOf="@id/username_dialog_error_text"
             android:layout_marginLeft="30dp"
             android:layout_marginBottom="20dp"
-            android:text="@string/username_dialog_submit" />
+            android:text="@string/username_dialog_submit"
+            android:fontFamily="@font/jaapokki_family"
+            style="@style/TextOutlineStyle"/>
     </RelativeLayout>
 
 </LinearLayout>

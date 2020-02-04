@@ -25,9 +25,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo_image_view"
+        android:textSize="22sp"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
-        android:background="@color/colorSecondaryLighter"/>
+        android:background="@color/colorSecondaryLighter"
+        android:fontFamily="@font/jaapokki_family"
+        style="@style/TextOutlineStyle"/>
 
     <Button
         android:id="@+id/main_settings_button"
@@ -39,6 +42,9 @@
         app:layout_constraintStart_toStartOf="parent"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
+        android:textSize="22sp"
         app:layout_constraintTop_toBottomOf="@+id/main_join_game_button"
-        android:background="@color/colorSecondaryLighter"/>
+        android:background="@color/colorSecondaryLighter"
+        android:fontFamily="@font/jaapokki_family"
+        style="@style/TextOutlineStyle"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

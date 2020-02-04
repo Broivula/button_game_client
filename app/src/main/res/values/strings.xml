@@ -11,7 +11,7 @@
     <string name="username_error_text_name_taken">given name already in use!</string>
     <string name="username_error_text_name_length">name must be between 3 and 15 characters long!</string>
 
-    <!-- FOR MAIN SELECTION FRAGMENT    -->
+    <!--    FOR MAIN SELECTION FRAGMENT    -->
     <string name="main_frag_join_game_button">Join a game</string>
     <string name="main_frag_settings">Settings</string>
 
@@ -21,4 +21,11 @@
     <string name="lobby_card_room_title">Room #%1$s</string>
     <string name="lobby_card_room_occupants">%1$s/10</string>
     <string name="lobby_card_room_current_score">Ongoing click: %1$s</string>
+
+
+    <!--    FOR GAME OVER DIALOG     -->
+    <string name="game_over_title_text">GAME OVER!</string>
+    <string name="game_over_detail_text">Sorry, you have no more clicks left in ya.\nWant to try again, or exit to lobby?</string>
+    <string name="game_over_try_again_button">TRY AGAIN</string>
+    <string name="game_over_exit_button">EXIT</string>
 </resources>

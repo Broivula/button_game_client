@@ -30,4 +30,23 @@
         <item name="colorControlHighlight">@color/colorSecondaryLighter</item>
     </style>
 
+    <!--    Styling for game over dialog     -->
+    <style name="GameOverDialogTheme">
+        <item name="android:background">@color/colorUsernameDialogBackground</item>
+        <item name="android:windowEnterAnimation">@anim/slide_in_up</item>
+        <item name="android:windowExitAnimation">@anim/anim_fade_out</item>
+    </style>
+
+    <!--    General styling     -->
+    <style name="TextOutlineStyle">
+        <item name="android:paddingLeft">4px</item>
+        <item name="android:paddingBottom">4px</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+
 </resources>
