@@ -2,13 +2,15 @@
 <resources>
     <color name="colorPrimary">#12A09B</color>
     <color name="colorPrimaryLighter">#BFD6D1</color>
+    <color name="colorPrimaryLighter2">#9FB3AE</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorHintTextGray">#6D6D6D</color>
     <color name="colorError">#EC1717</color>
-    <color name="colorSecondary">#ff7043</color>
+    <color name="colorSecondary">#F77C5A</color>
     <color name="colorSecondaryLighter">#F09175</color>
     <color name="colorSplashBackground">#96D3C1</color>
     <color name="colorUserCreationBackground">#96D3C1</color>
     <color name="colorUsernameDialogBackground">#C9DFDA</color>
     <color name="colorDarkText">#191D1C</color>
+    <color name="button_shadow_color">#6D6D6D</color>
 </resources>

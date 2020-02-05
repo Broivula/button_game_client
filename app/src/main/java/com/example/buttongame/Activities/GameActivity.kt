@@ -1,21 +1,31 @@
 package com.example.buttongame.Activities
 
+import android.graphics.drawable.AnimatedVectorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.view.ViewGroup
+import android.view.ViewTreeObserver
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.view.children
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.buttongame.*
 import com.example.buttongame.Database.DatabaseObject
+import com.example.buttongame.Networking.GameStateSocketMessage
 import com.example.buttongame.Networking.SocketEvent
 import com.example.buttongame.Networking.SocketHandler
 import com.example.buttongame.Networking.SocketMessage
 import kotlinx.android.synthetic.main.activity_game.*
+import org.jetbrains.anko.childrenRecursiveSequence
+import org.jetbrains.anko.view
 
 class GameActivity : AppCompatActivity() {
 
     private var playerScore : Int? = null
     private var roomNumber: Int? = null
+    private var turnHolderPlayer : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,20 +35,50 @@ class GameActivity : AppCompatActivity() {
         roomNumber = intent.extras?.getInt("roomNumber")!!
 
 
-        game_click_button.isEnabled = false
+
+        enableButtons(false)
         game_click_button.setOnClickListener {
             // add stuff when clicked
             SocketHandler.sendClick(roomNumber!! + 1, playerScore)
+            it.isEnabled = false
+            game_click_button.background = getDrawable(R.drawable.game_click_button_disabled)
+        }
+
+        game_end_turn_button.setOnClickListener {
+            SocketHandler.endTurn(roomNumber!! + 1)
         }
 
         game_namelist_recycler_view.addItemDecoration(RecyclerviewItemDecoration(7))
 
-        connectToRoom(roomNumber!!)
+
+        establishConnectionAndListener(roomNumber!!)
+
+
+        game_namelist_recycler_view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener{
+            override fun onGlobalLayout() {
+                game_namelist_recycler_view.children.iterator().forEach {nameplate ->
+                    val params = (game_namelist_recycler_view.findContainingViewHolder(nameplate) as CustomViewHolder)
+                    Log.d(LOG, "turnholderplayerstring: $turnHolderPlayer  and params username: ${params.username}")
+                    if(params.turnHolder!!){
+                        //nameplate.findViewById<ImageView>(R.id.name_plate_turnholder_imageview).alpha = 1f
+                        if( turnHolderPlayer != params.username ){
+                            (nameplate.findViewById<ImageView>(R.id.name_plate_turnholder_imageview).drawable as? AnimatedVectorDrawable)?.start()
+                            turnHolderPlayer = params.username
+                        }
+                    }
+
+
+                    game_namelist_recycler_view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                }
+            }
+        })
+
+
     }
 
 
 
-    private fun connectToRoom(roomNumber: Int) {
+    private fun establishConnectionAndListener(roomNumber: Int) {
         SocketHandler.establishConnection(
             SocketMessage(
                 DatabaseObject.getUsername(),
@@ -48,17 +88,41 @@ class GameActivity : AppCompatActivity() {
                 null
             )
         ){
-            Log.d(LOG, "received in game activity, works lmao")
-            runOnUiThread {
-                game_namelist_recycler_view.layoutManager = LinearLayoutManager(this)
-                game_namelist_recycler_view.adapter = GameNameListAdapter(this, it!!.scores)
-                game_click_button.isEnabled = it.myTurn
-                playerScore = it.myScore
+            updateGameUI(it!!)
+        }
+    }
 
-                if(playerScore!! <= 0){
-                    gameOver()
-                }
+    private fun updateGameUI(gameState: GameStateSocketMessage){
+        runOnUiThread {
+            game_namelist_recycler_view.layoutManager = LinearLayoutManager(this)
+            game_namelist_recycler_view.adapter = GameNameListAdapter(this, gameState.scores)
+            game_click_button.isEnabled = gameState.myTurn
+            playerScore = gameState.myScore
+            game_to_next_win_textview.text = (10 -(gameState.clickAmount % 10)).toString()
+
+
+            // to handle the arrow animation, we have to do this whole thing
+
+
+            enableButtons(gameState.myTurn)
+            if(playerScore!! <= 0){
+                gameOver()
             }
+        }
+    }
+
+    private fun enableButtons(state: Boolean){
+        if(state){
+            game_click_button.isEnabled = true
+            game_end_turn_button.isEnabled = true
+            game_end_turn_button.background = getDrawable(R.drawable.game_click_button_background)
+            game_click_button.background = getDrawable(R.drawable.game_click_button_background)
+        }else{
+
+            game_click_button.isEnabled = false
+            game_end_turn_button.isEnabled = false
+            game_end_turn_button.background = getDrawable(R.drawable.game_click_button_disabled)
+            game_click_button.background = getDrawable(R.drawable.game_click_button_disabled)
         }
     }
 

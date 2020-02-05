@@ -14,14 +14,18 @@ class SocketMessageParser {
                 var myScore: Int? = null
                 val scoreList = mutableListOf<Score>()
                 val content = parsed.getString("msg")
-                Log.d(LOG, content)
                 val contentParsed = JSONObject(content)
                 val scores = contentParsed.getJSONArray("scores")
                 val players = contentParsed.getJSONArray("players")
                 val turnHolder = contentParsed.getInt("turnHolder")
                 val didClickWin = contentParsed.getBoolean("didClickWin")
                 val myTurn = players[turnHolder] == DatabaseObject.getUsername()
+                val playerArr = mutableListOf<String>()
                 // for the recyclerview
+                for(i in 0 until players.length()){
+                    playerArr.add(players.getString(i))
+                }
+                Log.d(LOG, players.toString())
                 for(i in 0 until scores.length()){
                     val user = JSONObject(scores.getString(i))
                     val name = user.getString("username")
@@ -31,11 +35,16 @@ class SocketMessageParser {
                     scoreList.add(Score(name, points, didClickWin, playersTurn))
                 }
 
+                val sortedList = playerArr.map {name ->
+                     scoreList.filter{score-> (score.username == name)}[0]
+                }
+
+
                 // for rest of the activity layout
                 val roomNumber = contentParsed.getInt("roomNumber")
                 val clickAmount = contentParsed.getInt("clickAmount")
 
-                return GameStateSocketMessage(roomNumber, clickAmount, scoreList.toList(), myTurn, myScore)
+                return GameStateSocketMessage(roomNumber, clickAmount, sortedList, myTurn, myScore)
             }
             else{
                 // if the statuscode was something else, implement

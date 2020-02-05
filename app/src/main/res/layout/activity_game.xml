@@ -8,10 +8,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/game_namelist_recycler_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/game_to_next_win_textview"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,7 +25,48 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="75dp"
-        android:text="Button"
+        android:text="@string/game_click_button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/jaapokki_family"
+        style="@style/TitleTextOutlineStyle"
+        android:paddingEnd="15dp"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:background="@drawable/game_click_button_background"
+        />
+
+    <Button
+        android:id="@+id/game_end_turn_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="75dp"
+        android:text="@string/game_end_turn_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/jaapokki_family"
+        style="@style/TextOutlineStyle"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:background="@drawable/game_click_button_background"
+        />
+
+    <TextView
+        android:id="@+id/game_to_next_win_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:text="TextView"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/game_click_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/jaapokki_family"
+        style="@style/TextOutlineStyle"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

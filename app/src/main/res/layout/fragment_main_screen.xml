@@ -6,15 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.MainScreenFragment">
 
-    <ImageView
-        android:id="@+id/logo_image_view"
+    <TextView
+        android:id="@+id/logo_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="128dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@mipmap/ic_launcher" />
+        android:fontFamily="@font/jaapokki_family"
+        android:text="@string/main_title_text"
+        style="@style/TitleTextOutlineStyle"
+        android:textSize="38sp"/>
 
     <Button
         android:id="@+id/main_join_game_button"
@@ -24,7 +27,7 @@
         android:text="@string/main_frag_join_game_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/logo_text_view"
         android:textSize="22sp"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"

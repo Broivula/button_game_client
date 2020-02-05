@@ -1,0 +1,43 @@
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="vector"
+            android:width="100dp"
+            android:height="100dp"
+            android:viewportWidth="100"
+            android:viewportHeight="100">
+            <group
+                android:name="group"
+                android:translateY="100">
+                <path
+                    android:name="path"
+                    android:pathData="M 85.295 42.796 L 57.205 42.796 L 57.205 14.704 C 57.205 10.731 53.973 7.5 50 7.5 C 46.027 7.5 42.795 10.732 42.795 14.704 L 42.795 42.795 L 14.705 42.795 C 10.732 42.796 7.5 46.027 7.5 50 C 7.5 53.973 10.732 57.204 14.705 57.204 L 42.795 57.204 L 42.795 85.295 C 42.795 89.268 46.027 92.499 50 92.499 C 53.973 92.499 57.205 89.267 57.205 85.295 L 57.205 57.204 L 85.295 57.204 C 89.268 57.204 92.5 53.972 92.5 50 C 92.5 46.028 89.268 42.796 85.295 42.796 Z"
+                    android:fillColor="#03bc1b"
+                    android:strokeWidth="1"/>
+            </group>
+        </vector>
+    </aapt:attr>
+    <target android:name="group">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="translateY"
+                    android:duration="400"
+                    android:valueFrom="100"
+                    android:valueTo="0"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/decelerate_interpolator"/>
+                <objectAnimator
+                    android:propertyName="translateY"
+                    android:startOffset="500"
+                    android:duration="500"
+                    android:valueFrom="0"
+                    android:valueTo="-100"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/accelerate_interpolator"/>
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>

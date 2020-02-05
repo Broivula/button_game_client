@@ -54,7 +54,6 @@ object SocketHandler {
         while(iterator.hasNext()) {
             val line = iterator.next()
             val msg = SocketMessageParser.parse(line)
-            Log.d(LOG, "msg incoming: $msg")
             callback(msg)
         }
     }
@@ -67,7 +66,6 @@ object SocketHandler {
     // function to communicate between the client and the server. Will be called whenever necessary.
 
     private fun sendData(msg: SocketMessage) = doAsync{
-        Log.d(LOG, "$msg")
         val socketMessage = """{
             |"username":"${msg.username}",
             |"roomNumber":${msg.roomNumber},
@@ -97,6 +95,18 @@ object SocketHandler {
                 TOKEN,
                 roomNumber,
                 SocketEvent.NEW_GAME,
+                null
+            )
+        )
+    }
+
+    fun endTurn(roomNumber: Int) = doAsync {
+        sendData(
+            SocketMessage(
+                DatabaseObject.getUsername(),
+                TOKEN,
+                roomNumber,
+                SocketEvent.END_TURN,
                 null
             )
         )
