@@ -33,9 +33,17 @@ enum class ValidationState{
     CLEAR
 }
 
+/**
+ * UsernameDialog is a class which creates the dialog for the username creation screen.
+ * It handles all the actions and UI of the created dialog.
+ * @param callback The given callback function. Is called when the dialog is dismissed,
+ *                 which in turn calls for the transition to the main activity.
+ */
 class UsernameDialog(val callback: () -> Unit) : AppCompatDialogFragment() {
 
-
+    /**
+     * @return returns the constructed dialog.
+     */
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
@@ -110,6 +118,14 @@ class UsernameDialog(val callback: () -> Unit) : AppCompatDialogFragment() {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
+    /**
+     *  SetAvailabilityAnimation is a function, that sets the loading animations on screen and the state of the button accordingly.
+     *
+     *  @param [animState] - The status of the api request that checks if given username is taken
+     *  @param [availabilityAnim] - The ImageView containing the actual vector animation
+     *  @param [loadingAnim] - The progressbar -view which plays between made and received request
+     *  @param [submitButton] - The button on the bottom of the dialog.
+     */
     private fun setAvailabilityAnimation(animState: ValidationState, availabilityAnim: ImageView, loadingAnim: ProgressBar, submitButton: Button){
         submitButton.isEnabled = false
         when(animState){
@@ -140,6 +156,11 @@ class UsernameDialog(val callback: () -> Unit) : AppCompatDialogFragment() {
         (availabilityAnim.drawable as AnimatedVectorDrawable).start()
     }
 
+    /**
+     *  ErrorTextHandler is a function, that handles the error text on screen. Error is determined by the result of the api request.
+     *
+     *  @param [errCode] - The error code of the status.
+     */
     private fun errorTextHandler(errCode: ErrorTextCode){
 
         val errorText =  dialog.findViewById<TextView>(R.id.username_dialog_error_text)
@@ -168,11 +189,17 @@ class UsernameDialog(val callback: () -> Unit) : AppCompatDialogFragment() {
 
     }
 
+    /**
+     *  OnDismiss is an overriden function, that calls the callback when dialog is dismissed.
+     */
     override fun onDismiss(dialog: DialogInterface?) {
         callback()
         super.onDismiss(dialog)
     }
 
+    /**
+     *  OnActivityCreated is an overriden function, that makes the dialog entrance and exit animations according to the dialog style.
+     */
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         dialog.window?.setWindowAnimations(R.style.UserCreationDialogTheme)
@@ -180,12 +207,25 @@ class UsernameDialog(val callback: () -> Unit) : AppCompatDialogFragment() {
 
 }
 
+/**
+ * UsernameFormChecker is a class which hosts a companion object, able to check the given username
+ * against a set regex.
+ */
 
 class UsernameFormChecker{
 
     companion object UsernameFormChecker {
 
         private val legitName = Regex("^(?=.{3,15}\$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])\$")
+
+        /**
+         *  CheckName is a function the checks the given username against a set regex.
+         *  The regex makes sure that the username is:
+         *  - 3 to 15 characters long
+         *  - contains no special characters
+         * @param  [name] The username to be checked
+         * @returns Returns boolean of was name accepted or not.
+         */
         fun checkName(name: String) : Boolean{
             return legitName.containsMatchIn(name)
         }
