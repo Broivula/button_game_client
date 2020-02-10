@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
 import android.view.ViewTreeObserver
+import android.widget.Button
 import android.widget.ImageView
 import androidx.core.view.children
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +24,8 @@ class GameActivity : AppCompatActivity() {
 
     private var playerScore : Int? = null
     private var roomNumber: Int? = null
-    private var turnHolderPlayer : String? = null
+    private var clickedOnce: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,18 +33,21 @@ class GameActivity : AppCompatActivity() {
 
 
         roomNumber = intent.extras?.getInt("roomNumber")!!
+        enableButton(false, game_end_turn_button)
+        enableButton(false, game_click_button)
 
-
-
-        enableButtons(false)
         game_click_button.setOnClickListener {
             // add stuff when clicked
             SocketHandler.sendClick(roomNumber!! + 1, playerScore)
             it.isEnabled = false
+            enableButton(true, game_end_turn_button)
+            clickedOnce = true
             game_click_button.background = getDrawable(R.drawable.game_click_button_disabled)
         }
 
         game_end_turn_button.setOnClickListener {
+            clickedOnce = false
+            enableButton(false, game_end_turn_button)
             SocketHandler.endTurn(roomNumber!! + 1)
         }
 
@@ -82,27 +87,22 @@ class GameActivity : AppCompatActivity() {
 
 
             // to handle the arrow animation, we have to do this whole thing
+            if(!clickedOnce)enableButton(false, game_click_button)
 
-
-            enableButtons(gameState.myTurn)
+            enableButton(gameState.myTurn, game_click_button)
             if(playerScore!! <= 0){
                 gameOver()
             }
         }
     }
 
-    private fun enableButtons(state: Boolean){
+    private fun enableButton(state: Boolean, button: Button){
         if(state){
-            game_click_button.isEnabled = true
-            game_end_turn_button.isEnabled = true
-            game_end_turn_button.background = getDrawable(R.drawable.game_click_button_background)
-            game_click_button.background = getDrawable(R.drawable.game_click_button_background)
+            button.isEnabled = true
+            button.background = getDrawable(R.drawable.game_click_button_background)
         }else{
-
-            game_click_button.isEnabled = false
-            game_end_turn_button.isEnabled = false
-            game_end_turn_button.background = getDrawable(R.drawable.game_click_button_disabled)
-            game_click_button.background = getDrawable(R.drawable.game_click_button_disabled)
+            button.isEnabled = false
+            button.background = getDrawable(R.drawable.game_click_button_disabled)
         }
     }
 

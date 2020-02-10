@@ -1,6 +1,7 @@
 package com.example.buttongame.Networking
 
 import android.util.Log
+import com.example.buttongame.API_URL
 import com.example.buttongame.Database.DatabaseObject
 import com.example.buttongame.LOG
 import com.example.buttongame.TOKEN
@@ -20,12 +21,12 @@ object SocketHandler {
     fun establishConnection(msg: SocketMessage, callback : (ServerSocketResponse?) -> Unit) = doAsync{
         try {
             var tries = 0
-            socket = Socket("192.168.8.100", 3366)
+            socket = Socket(API_URL, 3366)
 
             Log.d(LOG, "${socket!!.isConnected}")
 
             while(!socket!!.isConnected && tries < 5){
-                socket = Socket("192.168.8.100", 3366)
+                socket = Socket(API_URL, 3366)
                 Thread.sleep(1000)
                 tries++
             }

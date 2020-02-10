@@ -22,11 +22,11 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField("String", "SERVER_URL", "\"http://192.168.8.100:3000\"")
+            buildConfigField("String", "SERVER_URL", "\"51.75.16.13\"")
         }
         release {
             minifyEnabled false
-            buildConfigField("String", "SERVER_URL", "\"http://192.168.8.100:3000\"")
+            buildConfigField("String", "SERVER_URL", "\"51.75.16.13\"")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

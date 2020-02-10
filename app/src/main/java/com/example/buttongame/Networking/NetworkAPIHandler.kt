@@ -12,7 +12,7 @@ import java.io.IOException
 class NetworkAPIHandler {
 
     private val client = OkHttpClient()
-    val API_URL = BuildConfig.SERVER_URL
+    private val REST_URL = "http://" + BuildConfig.SERVER_URL +":3003"
 
     fun checkUsernameAvailability(username: String, callback: (availability: Boolean) -> Unit) {
         val data = JSONObject()
@@ -20,7 +20,7 @@ class NetworkAPIHandler {
         val json = MediaType.parse("application/json; charset=utf-8")
         val body = RequestBody.create(json, data.toString())
         val request = Request.Builder()
-            .url(API_URL + USERNAME_AVAIL_ENDPOINT)
+            .url(REST_URL + USERNAME_AVAIL_ENDPOINT)
             .addHeader(AUTH, TOKEN)
             .post(body)
             .build()
@@ -50,7 +50,7 @@ class NetworkAPIHandler {
         val json = MediaType.parse("application/json; charset=utf-8")
         val body = RequestBody.create(json, data.toString())
         val request = Request.Builder()
-            .url(API_URL + ADD_USER_ENDPOINT)
+            .url(REST_URL + ADD_USER_ENDPOINT)
             .addHeader(AUTH, TOKEN)
             .post(body)
             .build()
@@ -78,7 +78,7 @@ class NetworkAPIHandler {
 
         val roomList : MutableList<RoomData> = mutableListOf()
         val request = Request.Builder()
-            .url(API_URL + GET_ROOM_DATA_ENDPOINT)
+            .url(REST_URL + GET_ROOM_DATA_ENDPOINT)
             .addHeader(AUTH, TOKEN)
             .build()
 
