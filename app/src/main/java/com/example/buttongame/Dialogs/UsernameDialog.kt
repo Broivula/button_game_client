@@ -1,20 +1,16 @@
-package com.example.buttongame
+package com.example.buttongame.Dialogs
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatDialogFragment
-import com.example.buttongame.Activities.MainActivity
 import com.example.buttongame.Database.DatabaseObject
 import com.example.buttongame.Networking.SocketHandler
+import com.example.buttongame.R
 import com.jakewharton.rxbinding.widget.RxTextView
-import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.runOnUiThread
 import java.lang.IllegalStateException
 import java.util.concurrent.TimeUnit
@@ -42,13 +38,13 @@ enum class ValidationState{
 class UsernameDialog(val callback: () -> Unit) : AppCompatDialogFragment() {
 
     /**
-     * @return returns the constructed dialog.
+     * @returns [Dialog] returns the constructed dialog.
      */
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-            val inflater = requireActivity().layoutInflater;
-            val layoutView = inflater.inflate(R.layout.username_dialog_layout, null)
+            val inflater = requireActivity().layoutInflater
+            val layoutView = inflater.inflate(R.layout.dialog_username_creation_layout, null)
             val editTextField = layoutView.findViewById<EditText>(R.id.username_dialog_edittext)
             val availabilityAnimation = layoutView.findViewById<ImageView>(R.id.correct_anim)
             val loadingAnim = layoutView.findViewById<ProgressBar>(R.id.username_dialog_progress_bar)
@@ -84,7 +80,10 @@ class UsernameDialog(val callback: () -> Unit) : AppCompatDialogFragment() {
             RxTextView.textChanges(editTextField).debounce(1, TimeUnit.SECONDS).subscribe{_ ->
                 if(editTextField.text.count() > 0){
 
-                    if(UsernameFormChecker.checkName(editTextField.text.toString())){
+                    if(UsernameFormChecker.checkName(
+                            editTextField.text.toString()
+                        )
+                    ){
                         SocketHandler.networkHandler.checkUsernameAvailability(editTextField.text.toString()) { availability ->
                             runOnUiThread {
                                 when(availability){
@@ -102,7 +101,9 @@ class UsernameDialog(val callback: () -> Unit) : AppCompatDialogFragment() {
                         // regex failed bra
                         runOnUiThread {
                             setAvailabilityAnimation(ValidationState.NOT_AVAILABLE, availabilityAnimation, loadingAnim, submitButton)
-                            if(editTextField.text.length > 2 || editTextField.text.length > 15) errorTextHandler(ErrorTextCode.INVALID)
+                            if(editTextField.text.length > 2 || editTextField.text.length > 15) errorTextHandler(
+                                ErrorTextCode.INVALID
+                            )
                             else errorTextHandler(ErrorTextCode.LENGTH)
                         }
                     }

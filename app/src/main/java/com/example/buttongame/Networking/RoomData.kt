@@ -1,4 +1,4 @@
-package com.example.buttongame
+package com.example.buttongame.Networking
 
 data class RoomData (
     val roomNumber: Int,

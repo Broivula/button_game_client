@@ -19,8 +19,6 @@ class SplashActivity : AppCompatActivity() {
 
 
         val dat = DatabaseObject.getUserData()
-        Log.d(LOG, "userdata is: ${dat?.count()}")
-
         navigate(dat?.count())
 
     }

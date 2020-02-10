@@ -1,4 +1,4 @@
-package com.example.buttongame
+package com.example.buttongame.Dialogs
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.example.buttongame.Networking.SocketHandler
+import com.example.buttongame.R
 import org.jetbrains.anko.support.v4.runOnUiThread
 import java.lang.IllegalStateException
 
@@ -16,8 +17,8 @@ class GameOverDialog(val roomNumber: Int) : AppCompatDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-            val inflater = requireActivity().layoutInflater;
-            val layoutView = inflater.inflate(R.layout.game_over_dialog, null)
+            val inflater = requireActivity().layoutInflater
+            val layoutView = inflater.inflate(R.layout.dialog_game_over, null)
 
             val tryAgainButton = layoutView.findViewById<Button>(R.id.game_over_try_again_button)
             val exitButton = layoutView.findViewById<Button>(R.id.game_over_exit_button)

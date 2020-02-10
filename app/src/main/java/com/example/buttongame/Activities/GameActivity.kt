@@ -5,21 +5,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
-import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.view.children
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.buttongame.*
 import com.example.buttongame.Database.DatabaseObject
+import com.example.buttongame.Dialogs.GameOverDialog
+import com.example.buttongame.Dialogs.ServerErrorDialog
 import com.example.buttongame.Networking.GameStateSocketMessage
 import com.example.buttongame.Networking.SocketEvent
 import com.example.buttongame.Networking.SocketHandler
 import com.example.buttongame.Networking.SocketMessage
 import kotlinx.android.synthetic.main.activity_game.*
-import org.jetbrains.anko.childrenRecursiveSequence
-import org.jetbrains.anko.view
 
 class GameActivity : AppCompatActivity() {
 
@@ -49,29 +47,9 @@ class GameActivity : AppCompatActivity() {
         }
 
         game_namelist_recycler_view.addItemDecoration(RecyclerviewItemDecoration(7))
-
-
         establishConnectionAndListener(roomNumber!!)
 
 
-        game_namelist_recycler_view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener{
-            override fun onGlobalLayout() {
-                game_namelist_recycler_view.children.iterator().forEach {nameplate ->
-                    val params = (game_namelist_recycler_view.findContainingViewHolder(nameplate) as CustomViewHolder)
-                    Log.d(LOG, "turnholderplayerstring: $turnHolderPlayer  and params username: ${params.username}")
-                    if(params.turnHolder!!){
-                        //nameplate.findViewById<ImageView>(R.id.name_plate_turnholder_imageview).alpha = 1f
-                        if( turnHolderPlayer != params.username ){
-                            (nameplate.findViewById<ImageView>(R.id.name_plate_turnholder_imageview).drawable as? AnimatedVectorDrawable)?.start()
-                            turnHolderPlayer = params.username
-                        }
-                    }
-
-
-                    game_namelist_recycler_view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                }
-            }
-        })
 
 
     }
@@ -88,7 +66,9 @@ class GameActivity : AppCompatActivity() {
                 null
             )
         ){
-            updateGameUI(it!!)
+            if(it?.statusCode == 200)updateGameUI(it?.msg!!)
+            else serverError(it?.err!!)
+
         }
     }
 
@@ -124,6 +104,13 @@ class GameActivity : AppCompatActivity() {
             game_end_turn_button.background = getDrawable(R.drawable.game_click_button_disabled)
             game_click_button.background = getDrawable(R.drawable.game_click_button_disabled)
         }
+    }
+
+    private fun serverError(errorMsg: String){
+
+        val dialog = ServerErrorDialog(errorMsg)
+        dialog.isCancelable = false
+        dialog.show(supportFragmentManager, "server_error")
     }
 
     private fun gameOver() {

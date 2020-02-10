@@ -33,4 +33,8 @@
     <!--    FOR GAME ACTIVITY       -->
     <string name="game_click_button">+1</string>
     <string name="game_end_turn_button">End Turn</string>
+
+    <!--    FOR ERROR DIALOG        -->
+    <string name="error_dialog_button">RETURN</string>
+    <string name="error_dialog_title">Error!</string>
 </resources>

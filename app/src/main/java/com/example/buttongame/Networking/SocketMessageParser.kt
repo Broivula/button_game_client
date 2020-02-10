@@ -7,13 +7,13 @@ import org.json.JSONObject
 
 class SocketMessageParser {
     companion object Parser {
-        fun parse(line: String) : GameStateSocketMessage?{
+        fun parse(line: String) : ServerSocketResponse?{
             val parsed = JSONObject(line)
-            val statusCode = parsed.getInt("status");
+            val statusCode = parsed.getInt("status")
+            val content = parsed.getString("msg")
             if(statusCode == 200){
                 var myScore: Int? = null
                 val scoreList = mutableListOf<Score>()
-                val content = parsed.getString("msg")
                 val contentParsed = JSONObject(content)
                 val scores = contentParsed.getJSONArray("scores")
                 val players = contentParsed.getJSONArray("players")
@@ -25,14 +25,17 @@ class SocketMessageParser {
                 for(i in 0 until players.length()){
                     playerArr.add(players.getString(i))
                 }
-                Log.d(LOG, players.toString())
                 for(i in 0 until scores.length()){
                     val user = JSONObject(scores.getString(i))
                     val name = user.getString("username")
                     val points = user.getInt("score")
                     val playersTurn = players[turnHolder] == name
                     if(DatabaseObject.getUsername() == name) myScore = points
-                    scoreList.add(Score(name, points, didClickWin, playersTurn))
+                    var amountWon : Int?  = null
+
+                    if(didClickWin) amountWon = contentParsed.getInt("amountWon")
+
+                    scoreList.add(Score(name, points, didClickWin, playersTurn, amountWon))
                 }
 
                 val sortedList = playerArr.map {name ->
@@ -44,12 +47,13 @@ class SocketMessageParser {
                 val roomNumber = contentParsed.getInt("roomNumber")
                 val clickAmount = contentParsed.getInt("clickAmount")
 
-                return GameStateSocketMessage(roomNumber, clickAmount, sortedList, myTurn, myScore)
+                return ServerSocketResponse(statusCode, GameStateSocketMessage(roomNumber, clickAmount, sortedList, myTurn, myScore), null)
             }
             else{
                 // if the statuscode was something else, implement
                 // some error handling here, toast msg or something
-                return null
+                val errorMsg = JSONObject(content).getString("errorMsg")
+                return ServerSocketResponse(statusCode, null, errorMsg)
             }
 
         }

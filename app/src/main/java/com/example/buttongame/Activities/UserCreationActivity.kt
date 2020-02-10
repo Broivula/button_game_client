@@ -1,14 +1,10 @@
 package com.example.buttongame.Activities
 
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.example.buttongame.LOG
 import com.example.buttongame.R
-import com.example.buttongame.UsernameDialog
-import org.jetbrains.anko.matchParent
+import com.example.buttongame.Dialogs.UsernameDialog
 
 class UserCreationActivity : AppCompatActivity() {
 
@@ -19,7 +15,7 @@ class UserCreationActivity : AppCompatActivity() {
     }
 
     private fun startUsernameDialog(){
-        val dialog = UsernameDialog(){
+        val dialog = UsernameDialog {
             dialogDismissed()
         }
         dialog.enterTransition = R.anim.slide_in_left

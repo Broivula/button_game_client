@@ -1,12 +1,10 @@
 package com.example.buttongame.Networking
 
-import android.provider.ContactsContract
 import android.util.Log
 import com.example.buttongame.Database.DatabaseObject
 import com.example.buttongame.LOG
 import com.example.buttongame.TOKEN
 import org.jetbrains.anko.doAsync
-import org.json.JSONObject
 import java.io.*
 import java.net.Socket
 import kotlin.concurrent.thread
@@ -19,7 +17,7 @@ object SocketHandler {
     val networkHandler = NetworkAPIHandler()
     var socketCommunicator : PrintStream? = null
 
-    fun establishConnection(msg: SocketMessage, callback : (GameStateSocketMessage?) -> Unit) = doAsync{
+    fun establishConnection(msg: SocketMessage, callback : (ServerSocketResponse?) -> Unit) = doAsync{
         try {
             var tries = 0
             socket = Socket("192.168.8.100", 3366)
@@ -48,7 +46,7 @@ object SocketHandler {
     }
 
     // receive the incoming data and send it further to be parsed
-    private fun setListener(callback: (GameStateSocketMessage?) -> Unit){
+    private fun setListener(callback: (ServerSocketResponse?) -> Unit){
         val reader = socket!!.getInputStream().bufferedReader()
         val iterator = reader.lineSequence().iterator()
         while(iterator.hasNext()) {

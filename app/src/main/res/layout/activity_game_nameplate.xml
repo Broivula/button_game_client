@@ -12,49 +12,77 @@
         android:layout_height="70dp"
         android:background="@drawable/lobby_recycler_view_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/name_plate_turnholder_imageview"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/name_plate_text_view"
+            android:id="@+id/name_plate_username"
             style="@style/TextOutlineStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_gravity="start"
             android:layout_margin="5dp"
+            android:layout_marginTop="5dp"
             android:background="#00FFFFFF"
             android:fontFamily="@font/jaapokki_family"
             android:maxLines="1"
             android:padding="5dp"
-            android:text="kjasdlkaf"
+            android:text="123456789012345"
+            android:textSize="20sp"
+            app:layout_constraintHorizontal_weight="1" />
+
+        <TextView
+            android:id="@+id/name_plate_score"
+            style="@style/TextOutlineStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@id/name_plate_amount_gained"
+            android:background="#00FFFFFF"
+            android:fontFamily="@font/jaapokki_family"
+            android:maxLines="1"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:text=""
             android:textSize="25sp"
             app:layout_constraintHorizontal_weight="1" />
 
+        <!--
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/name_plate_result_image_view"
-            android:layout_width="wrap_content"
+            android:layout_width="25dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:layout_toStartOf="@id/name_plate_amount_gained"
             android:background="#00FFFFFF"
             app:srcCompat="@drawable/plus_animation" />
 
-    </RelativeLayout>
+-->
+        <TextView
+            android:id="@+id/name_plate_amount_gained"
+            style="@style/TextOutlineStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_margin="5dp"
+            android:layout_alignParentEnd="true"
+            android:background="#00FFFFFF"
+            android:fontFamily="@font/jaapokki_family"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="@color/colorWinText"
+            android:text="   "
+            android:textSize="25sp"
+            app:layout_constraintHorizontal_weight="1"
+            />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/name_plate_turnholder_imageview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-         />
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

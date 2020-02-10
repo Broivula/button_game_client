@@ -5,6 +5,7 @@
     <color name="colorPrimaryLighter2">#9FB3AE</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorHintTextGray">#6D6D6D</color>
+    <color name="colorWinText">#03bc1b</color>
     <color name="colorError">#EC1717</color>
     <color name="colorSecondary">#F77C5A</color>
     <color name="colorSecondaryLighter">#F09175</color>

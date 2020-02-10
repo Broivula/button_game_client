@@ -94,11 +94,13 @@ class NetworkAPIHandler {
                     val parsedArray = CustomParser.parse(response.body()?.string()!!)
                     for(room in parsedArray){
                         val parsedRoom = JSONObject(room)
-                        roomList.add(RoomData(
-                            parsedRoom.getInt("roomNumber"),
-                            parsedRoom.getInt("playerCount"),
-                            parsedRoom.getInt("curClick")
-                        ))
+                        roomList.add(
+                            RoomData(
+                                parsedRoom.getInt("roomNumber"),
+                                parsedRoom.getInt("playerCount"),
+                                parsedRoom.getInt("curClick")
+                            )
+                        )
                     }
                     callback(roomList.toList())
                 }

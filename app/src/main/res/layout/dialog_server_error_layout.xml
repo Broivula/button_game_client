@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:theme="@style/UserCreationDialogTheme">
+
+    <TextView
+        android:id="@+id/error_dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="15dp"
+        android:background="#00FFFFFF"
+        android:gravity="center"
+        android:text="@string/error_dialog_title"
+        android:textSize="30sp"
+        android:fontFamily="@font/jaapokki_family"
+        style="@style/TextOutlineStyle"/>
+
+    <TextView
+        android:id="@+id/error_dialog_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="35dp"
+        android:gravity="center"
+        android:background="#00FFFFFF"
+        android:textSize="22sp"
+        android:text="@string/game_over_detail_text"
+        android:fontFamily="@font/jaapokki_family"
+        style="@style/TextOutlineStyle"/>
+
+
+    <Button
+        android:id="@+id/error_dialog_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:fontFamily="@font/jaapokki_family"
+        style="@style/TextOutlineStyle"
+        android:background="@color/colorSecondaryLighter"
+        android:text="@string/error_dialog_button"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingBottom="5dp"
+        android:layout_marginBottom="40dp"
+        >
+
+    </Button>
+
+</LinearLayout>

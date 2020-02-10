@@ -2,22 +2,22 @@ package com.example.buttongame
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.graphics.drawable.AnimatedVectorDrawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.marginEnd
 import androidx.recyclerview.widget.RecyclerView
 import com.example.buttongame.Activities.GameActivity
+import com.example.buttongame.Networking.RoomData
 import com.example.buttongame.Networking.Score
 import kotlinx.android.synthetic.main.activity_game_nameplate.view.*
 import kotlinx.android.synthetic.main.lobby_room_layout.view.*
-import org.jetbrains.anko.custom.style
 
 
 // an adapter for the main lobby, displaying the rooms and data in rooms
@@ -27,7 +27,7 @@ class MainAdapter (val context: Context, var dataOfRooms : List<RoomData>) : Rec
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val row = layoutInflater.inflate(R.layout.lobby_room_layout, parent, false)
-        return CustomViewHolder(row, null, null)
+        return CustomViewHolder(row)
     }
 
     override fun getItemCount(): Int {
@@ -54,7 +54,7 @@ class GameNameListAdapter (val context: Context, var gameScores : List<Score>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val row = layoutInflater.inflate(R.layout.activity_game_nameplate, parent, false)
-        return CustomViewHolder(row, null, null)
+        return CustomViewHolder(row)
     }
 
     override fun getItemCount(): Int {
@@ -63,22 +63,40 @@ class GameNameListAdapter (val context: Context, var gameScores : List<Score>) :
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val player = gameScores.get(position)
-        holder.username = player.username
-        holder.turnHolder = player.turnHolder
-        if(player.turnHolder)holder.view.findViewById<RelativeLayout>(R.id.name_plate_parent_layout).background = holder.view.context.getDrawable(R.drawable.lobby_recyclerview_background_turnholder)
 
-        val turnHolderIconAnimationView = holder.view.findViewById<ImageView>(R.id.name_plate_turnholder_imageview)
         if(player.turnHolder){
-           (holder.view.findViewById<RelativeLayout>(R.id.name_plate_parent_layout).layoutParams as ConstraintLayout.LayoutParams).setMargins(0, 0, 50, 0)
+            holder.view.findViewById<RelativeLayout>(R.id.name_plate_parent_layout).background = holder.view.context.getDrawable(R.drawable.lobby_recyclerview_background_turnholder)
+           (holder.view.findViewById<RelativeLayout>(R.id.name_plate_parent_layout).layoutParams as ConstraintLayout.LayoutParams).setMargins(50, 0, 0, 0)
+        }
+        if(player.didClickWin && player.turnHolder){
+            val amountView = holder.view.findViewById<TextView>(R.id.name_plate_amount_gained)
+            val anim = AnimationUtils.loadAnimation(context, R.anim.anim_slide_up_all_the_way)
+            amountView.text = "+" + player.amountWon.toString()
+            anim.reset()
+            anim.setAnimationListener(object : Animation.AnimationListener{
+                override fun onAnimationRepeat(animation: Animation?) {
+
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    amountView.text = "   "
+                }
+
+                override fun onAnimationStart(animation: Animation?) {
+                }
+            })
+            amountView.startAnimation(anim)
+
         }
 
 
+ //       val resultIconAnimationView = holder.view.findViewById<ImageView>(R.id.name_plate_result_image_view)
+     //   if(player.didClickWin && player.turnHolder)(resultIconAnimationView.drawable as? AnimatedVectorDrawable)?.start()
 
-        val resultIconAnimationView = holder.view.findViewById<ImageView>(R.id.name_plate_result_image_view)
-        if(player.didClickWin && player.turnHolder)(resultIconAnimationView.drawable as? AnimatedVectorDrawable)?.start()
-        //if(player.turnHolder)(iconAnimationView.drawable as? AnimatedVectorDrawable)?.start()
-        holder.view.name_plate_text_view.text = player.username + " "  + player.score
+        holder.view.name_plate_username.text = player.username
+        holder.view.name_plate_score.text = player.score.toString()
     }
 }
 
-class CustomViewHolder(val view: View, var username: String?, var turnHolder:  Boolean?) : RecyclerView.ViewHolder(view)
+class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+
