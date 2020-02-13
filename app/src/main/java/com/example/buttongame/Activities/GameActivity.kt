@@ -19,6 +19,7 @@ import com.example.buttongame.Networking.SocketEvent
 import com.example.buttongame.Networking.SocketHandler
 import com.example.buttongame.Networking.SocketMessage
 import kotlinx.android.synthetic.main.activity_game.*
+import java.io.IOException
 
 class GameActivity : AppCompatActivity() {
 
@@ -78,6 +79,7 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun updateGameUI(gameState: GameStateSocketMessage){
+        try{
         runOnUiThread {
             game_namelist_recycler_view.layoutManager = LinearLayoutManager(this)
             game_namelist_recycler_view.adapter = GameNameListAdapter(this, gameState.scores)
@@ -93,6 +95,10 @@ class GameActivity : AppCompatActivity() {
             if(playerScore!! <= 0){
                 gameOver()
             }
+        }
+        }catch (e: IOException){
+            Log.d(LOG, "error, handle it")
+            SocketHandler.exitRoom()
         }
     }
 
@@ -126,6 +132,8 @@ class GameActivity : AppCompatActivity() {
         // was causing crashing on re-enter.
         // besides, we're not saving anything to the bundle, so all good.
     }
+
+
 
     override fun onBackPressed() {
         super.onBackPressed()

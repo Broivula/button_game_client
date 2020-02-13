@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 enum class FragmentID {
     MAIN,
     ROOMS,
-    HIGHSCORE
+    ABOUT
 }
 
 object FragmentTransitionManager {
@@ -32,8 +32,8 @@ object FragmentTransitionManager {
             FragmentID.ROOMS -> {
                 fragment = LobbyFragment()
             }
-            FragmentID.HIGHSCORE -> {
-
+            FragmentID.ABOUT -> {
+                fragment = AboutFragment()
             }
         }
         if(backEnterAnimation == null){
@@ -42,6 +42,7 @@ object FragmentTransitionManager {
             fTransaction.setCustomAnimations(enterAnimation, exitAnimation, backEnterAnimation, backExitAnimation!!).addToBackStack(fragmentTag)
         }
 
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         fTransaction.replace(R.id.main_fragment_containter, fragment!!)
         fTransaction.commit()
     }

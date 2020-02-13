@@ -13,7 +13,7 @@
 
     <!--    FOR MAIN SELECTION FRAGMENT    -->
     <string name="main_frag_join_game_button">Join a game</string>
-    <string name="main_frag_settings">Settings</string>
+    <string name="main_frag_settings">About</string>
     <string name="main_title_text">the button game</string>
 
     <!--    FOR LOBBY FRAGMENT       -->
@@ -37,4 +37,8 @@
     <!--    FOR ERROR DIALOG        -->
     <string name="error_dialog_button">RETURN</string>
     <string name="error_dialog_title">Error!</string>
+
+
+    <!--    FOR ABOUT FRAGMENT      -->
+    <string name="about_page_text">Name: Elias Koivula\nSkills:\n - Scala\n - JavaScript\n - Python\n - C/C#/C++\n - Kotlin\n - Swift</string>
 </resources>
