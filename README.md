@@ -14,8 +14,7 @@
 
 <h3> OR ALTERNATIVELY.. </h3>
 
-watch a rundown of the app on <h5>[HERE](https://www.youtube.com/watch?v=Yq8i3eNF-1Q&feature=youtu.be)</h5>
+..watch a rundown of the app on YouTube [HERE](https://www.youtube.com/watch?v=Yq8i3eNF-1Q&feature=youtu.be)
 
 
-Don't forget to check the server-side repository at
-https://github.com/Broivula/button_game_server
+Don't forget to check the server-side repository at [Github](https://github.com/Broivula/button_game_server)
