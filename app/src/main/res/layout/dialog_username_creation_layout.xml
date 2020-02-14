@@ -93,15 +93,16 @@
 
         <TextView
             android:id="@+id/username_dialog_error_text"
-            style="@style/TextOutlineStyle"
+            style="@style/ErrorTextOutlineStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:maxWidth="170dp"
             android:fontFamily="@font/jaapokki_family"
             android:text=""
             android:textColor="@color/colorError"
             android:textSize="14sp"
-            android:textStyle="italic" />
+            android:textStyle="italic"/>
 
         <Button
             android:id="@+id/dialog_submit_button"
