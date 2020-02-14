@@ -14,8 +14,7 @@
 
 <h3> OR ALTERNATIVELY.. </h3>
 
-watch a rundown of the app on [this video].
-(https://www.youtube.com/watch?v=Yq8i3eNF-1Q&feature=youtu.be)
+watch a rundown of the app on [this video](https://www.youtube.com/watch?v=Yq8i3eNF-1Q&feature=youtu.be)
 
 
 Don't forget to check the server-side repository at
