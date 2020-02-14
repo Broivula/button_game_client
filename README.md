@@ -12,3 +12,7 @@
   <li> Connect a mobile device into your computer, and run the App by clicking the play symbol inside Android Studio top menu bar </li> 
 </ol>
 
+<h1> OR ALTERNATIVELY.. </h1>
+
+watch a rundown of the app on this video.
+https://www.youtube.com/watch?v=Yq8i3eNF-1Q&feature=youtu.be
