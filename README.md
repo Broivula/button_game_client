@@ -14,7 +14,7 @@
 
 <h3> OR ALTERNATIVELY.. </h3>
 
-watch a rundown of the app on <h3>[HERE]</h3>(https://www.youtube.com/watch?v=Yq8i3eNF-1Q&feature=youtu.be)
+watch a rundown of the app on <h3>[HERE](https://www.youtube.com/watch?v=Yq8i3eNF-1Q&feature=youtu.be)</h3>
 
 
 Don't forget to check the server-side repository at
